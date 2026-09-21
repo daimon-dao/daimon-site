@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/* Design tokens. Navy background, gold for accents only, cream for text. */
+@theme {
+  --color-navy: #0a1128;
+  --color-panel: #060b1d;
+  --color-gold: #c9a227;
+  --color-cream: #f5e9c8;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-navy);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (min-width: 48rem) {
+    body {
+      font-size: 1.0625rem;
+      line-height: 1.8;
+    }
+  }
+  strong {
+    font-weight: 600;
+    color: var(--color-cream);
+  }
+  a {
+    color: var(--color-gold);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-color: color-mix(in srgb, var(--color-gold) 45%, transparent);
+  }
+  a:hover {
+    text-decoration-color: var(--color-gold);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-navy);
+  }
+}
+
+@layer components {
+  /* The two calls to action. Flat: no shadow, no gradient, no transition. */
+  .btn {
+    display: inline-block;
+    border: 1px solid var(--color-gold);
+    border-radius: 2px;
+    padding: 0.625rem 1.25rem;
+    font-weight: 500;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-cream);
+    border-color: var(--color-cream);
+  }
+  .btn-secondary {
+    color: var(--color-gold);
+  }
+  .btn-secondary:hover {
+    color: var(--color-cream);
+    border-color: var(--color-cream);
+  }
+
+  /* Code is evidence: monospaced, on a darker panel. */
+  .code-panel {
+    background-color: var(--color-panel);
+    border: 1px solid color-mix(in srgb, var(--color-gold) 25%, transparent);
+    border-radius: 2px;
+    padding: 0.875rem 1rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-cream);
+  }
+}
