@@ -1,10 +1,9 @@
 @import "tailwindcss";
 
-/* Design tokens. Navy base with a deeper navy for alternating sections,
-   gold for numbers, lines, particles and the primary button, cream for text. */
+/* ───────────────────────── brand constants ─────────────────────────
+   Literal colours, the same in both themes. */
 @theme {
   --color-navy: #0a1128;
-  --color-navy-deep: #060b1d;
   --color-gold: #c9a227;
   --color-gold-bright: #e0b93a;
   --color-cream: #f5e9c8;
@@ -15,15 +14,72 @@
   --font-mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
+/* ───────────────────────── themes ─────────────────────────
+   Semantic tokens, switched by <html data-theme>. The inline script in <head>
+   sets the attribute before first paint; the media query below covers a
+   visitor without JavaScript. */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0a1128; /* navy */
+  --bg-deep: #060b1d; /* alternating sections */
+  --fg: #f5e9c8; /* cream */
+  --accent: #c9a227; /* gold: lines, button fill, small details */
+  --accent-text: #c9a227; /* gold used as text — on dark it passes as is */
+  --line: color-mix(in srgb, #c9a227 22%, transparent);
+  --card-bg: color-mix(in srgb, #f5e9c8 3%, transparent);
+  --card-bg-hover: color-mix(in srgb, #f5e9c8 5%, transparent);
+  --particle: 201, 162, 39; /* r, g, b — the canvas reads this */
+  --particle-color: rgb(201, 162, 39);
+  --accent-rgb: 201, 162, 39;
+}
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #fbf7ec; /* warm off-white, lighter than the brand cream */
+  --bg-deep: #f2ead5;
+  --fg: #0a1128; /* navy */
+  --accent: #c9a227;
+  --accent-text: #7a5f0b; /* darker gold: 5.6:1 on --bg (WCAG AA) */
+  --line: color-mix(in srgb, #0a1128 14%, transparent);
+  --card-bg: #fffdf7;
+  --card-bg-hover: #ffffff;
+  --particle: 8, 12, 176; /* the deep blue of the logo's ring */
+  --particle-color: rgb(8, 12, 176);
+  --accent-rgb: 201, 162, 39;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --bg: #fbf7ec;
+    --bg-deep: #f2ead5;
+    --fg: #0a1128;
+    --accent-text: #7a5f0b;
+    --line: color-mix(in srgb, #0a1128 14%, transparent);
+    --card-bg: #fffdf7;
+    --card-bg-hover: #ffffff;
+    --particle: 8, 12, 176;
+    --particle-color: rgb(8, 12, 176);
+  }
+}
+
+/* Utilities on the semantic tokens: bg-bg, text-fg/80, border-line, text-accent-text … */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-deep: var(--bg-deep);
+  --color-fg: var(--fg);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-line: var(--line);
+}
+
 @layer base {
   html {
-    color-scheme: dark;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
   body {
-    background-color: var(--color-navy);
-    color: var(--color-cream);
+    background-color: var(--bg);
+    color: var(--fg);
     font-family: var(--font-sans);
     font-size: 1.0625rem;
     line-height: 1.7;
@@ -33,10 +89,10 @@
     font-weight: 600;
   }
   a {
-    color: var(--color-gold);
+    color: var(--accent-text);
   }
   :focus-visible {
-    outline: 2px solid var(--color-gold);
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
   }
   ::selection {
@@ -59,12 +115,12 @@
 }
 
 @layer components {
-  /* Calls to action. */
+  /* Calls to action. The primary button is gold with navy text in both themes. */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--color-gold);
+    border: 1px solid var(--accent);
     border-radius: 8px;
     padding: 0.8rem 1.6rem;
     font-weight: 600;
@@ -81,6 +137,7 @@
   }
   .btn-primary {
     background-color: var(--color-gold);
+    border-color: var(--color-gold);
     color: var(--color-navy);
   }
   .btn-primary:hover {
@@ -88,10 +145,10 @@
     border-color: var(--color-gold-bright);
   }
   .btn-secondary {
-    color: var(--color-gold);
+    color: var(--accent-text);
   }
   .btn-secondary:hover {
-    background-color: color-mix(in srgb, var(--color-gold) 12%, transparent);
+    background-color: color-mix(in srgb, var(--accent) 14%, transparent);
   }
   .btn-small {
     padding: 0.5rem 1rem;
@@ -99,23 +156,54 @@
     border-radius: 6px;
   }
 
-  /* Text links: gold, underline appears on hover. */
+  /* Text links: underline appears on hover. */
   .link {
-    color: var(--color-gold);
+    color: var(--accent-text);
     text-decoration: underline;
     text-decoration-color: transparent;
     text-underline-offset: 0.25em;
     transition: text-decoration-color 0.2s;
   }
   .link:hover {
-    text-decoration-color: var(--color-gold);
+    text-decoration-color: var(--accent-text);
+  }
+
+  /* Theme toggle: the icon that matches the current theme is the one shown. */
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--fg);
+    cursor: pointer;
+    transition:
+      border-color 0.2s,
+      background-color 0.2s;
+  }
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    background-color: color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+  .icon-sun,
+  .icon-moon {
+    display: none;
+  }
+  [data-theme="dark"] .icon-sun,
+  :root:not([data-theme]) .icon-sun {
+    display: block;
+  }
+  [data-theme="light"] .icon-moon {
+    display: block;
   }
 
   /* Proof cards. */
   .card {
-    border: 1px solid color-mix(in srgb, var(--color-gold) 22%, transparent);
+    border: 1px solid var(--line);
     border-radius: 14px;
-    background-color: color-mix(in srgb, var(--color-cream) 3%, transparent);
+    background-color: var(--card-bg);
     padding: 1.75rem;
     transition:
       transform 0.25s,
@@ -124,14 +212,14 @@
   }
   .card:hover {
     transform: translateY(-4px);
-    border-color: color-mix(in srgb, var(--color-gold) 60%, transparent);
-    background-color: color-mix(in srgb, var(--color-cream) 5%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+    background-color: var(--card-bg-hover);
   }
 
-  /* Code is evidence: monospaced, on a darker panel. */
+  /* Code is evidence: monospaced, cream on navy in both themes. */
   .code-panel {
-    background-color: var(--color-navy-deep);
-    border: 1px solid color-mix(in srgb, var(--color-gold) 25%, transparent);
+    background-color: var(--color-navy);
+    border: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
     border-radius: 8px;
     padding: 0.875rem 1rem;
     overflow-x: auto;
@@ -177,7 +265,7 @@
     top: 10px;
     bottom: 10px;
     width: 1px;
-    background: color-mix(in srgb, var(--color-gold) 35%, transparent);
+    background: color-mix(in srgb, var(--accent) 45%, transparent);
   }
   .timeline > li {
     position: relative;
@@ -190,21 +278,21 @@
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    border: 1px solid var(--color-gold);
-    background: var(--color-navy);
+    border: 1px solid var(--accent);
+    background: var(--bg);
   }
   .timeline > li.is-current::before {
-    background: var(--color-gold);
-    box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-gold) 20%, transparent);
+    background: var(--accent);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
     animation: pulse 2.4s ease-in-out infinite;
   }
   @keyframes pulse {
     0%,
     100% {
-      box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-gold) 20%, transparent);
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
     }
     50% {
-      box-shadow: 0 0 0 11px color-mix(in srgb, var(--color-gold) 8%, transparent);
+      box-shadow: 0 0 0 11px color-mix(in srgb, var(--accent) 9%, transparent);
     }
   }
   @media (min-width: 48rem) {

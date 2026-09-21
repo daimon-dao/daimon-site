@@ -12,7 +12,7 @@ export function LanguageSwitch({ current, label }: { current: Lang; label: strin
         <span key={v.lang} className="flex items-center gap-2">
           {i > 0 && <span aria-hidden="true">·</span>}
           {v.lang === current ? (
-            <span aria-current="page" className="font-semibold text-cream underline underline-offset-4">
+            <span aria-current="page" className="font-semibold text-fg underline underline-offset-4">
               {v.label}
             </span>
           ) : (

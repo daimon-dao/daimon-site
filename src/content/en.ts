@@ -15,6 +15,7 @@ export const en: SiteCopy = {
   ui: {
     sections: "Sections",
     language: "Language",
+    theme: "Toggle light or dark theme",
     footerLinks: "Footer links",
     constants: "The rules nobody can change",
     currentStage: "current stage",

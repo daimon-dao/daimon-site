@@ -53,7 +53,7 @@ export interface SiteCopy {
   path: string;
   meta: { description: string };
   /** Accessibility labels only; not visible copy. */
-  ui: { sections: string; language: string; footerLinks: string; constants: string; currentStage: string };
+  ui: { sections: string; language: string; theme: string; footerLinks: string; constants: string; currentStage: string };
   /** Section navigation in the header. */
   nav: LinkItem[];
   opening: {

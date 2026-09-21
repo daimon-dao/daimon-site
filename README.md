@@ -81,6 +81,22 @@ switched off under `prefers-reduced-motion` in `globals.css`. The fade-in uses C
 scroll-driven animations (`animation-timeline: view()`), a progressive enhancement:
 browsers without it show everything immediately.
 
+### The theme
+
+Two themes, dark (navy) and light (warm off-white), toggled by the sun/moon button
+in the header. The default follows `prefers-color-scheme`; a visitor's choice is kept
+in `localStorage` under `daimon-theme` and nowhere else (no cookie, nothing leaves the
+device). A tiny inline script in `<head>` ([src/lib/theme.ts](src/lib/theme.ts)) sets
+`<html data-theme>` before first paint, so a static page never flashes the wrong theme.
+
+Colours are semantic tokens in [globals.css](src/app/globals.css) (`--bg`, `--fg`,
+`--accent`, `--accent-text`, `--line`, `--particle`, …), exposed to Tailwind as
+`bg-bg`, `text-fg/80`, `border-line`, `text-accent-text`. On light, text-sized gold is
+the darker `#7a5f0b` (5.6:1 on the background, WCAG AA); `#c9a227` is used only for
+lines, the button fill and small details. Particles are gold on dark and the logo's deep
+blue on light; the canvas reads `--particle` and repaints when the theme changes, and
+the static SVG fallbacks use the same variable.
+
 ### Routes
 
 ```

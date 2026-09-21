@@ -21,7 +21,8 @@ const COUNT_MOBILE = 800; // and on phones
 const MOBILE_MAX_WIDTH = 768; // px; below this the mobile budget applies
 const DPR_CAP = 2; // devicePixelRatio is capped here
 
-const FILL = 0.84; // fraction of the canvas the shape's box occupies
+const FILL = 0.95; // fraction of the canvas the shape's box occupies
+const RING_FILL = 0.86; // the hero: leaves just enough room for the outer orbit
 const SIZE_MIN = 0.9; // particle radius, CSS px
 const SIZE_MAX = 2.4;
 const ALPHA_MIN = 0.35;
@@ -37,7 +38,7 @@ const DRIFT_SPEED = 0.8; // rad/s
 const REPEL_RADIUS = 110; // px around the pointer
 const REPEL_STRENGTH = 2600; // px/s² at the pointer, fading to 0 at the radius
 
-const RING_RADII = [0.44, 0.52]; // orbit radii, fraction of the box size, from the centre
+const RING_RADII = [0.53, 0.58]; // orbit radii, fraction of the box size, from the centre
 const RING_COUNTS = [36, 60];
 const RING_SPEEDS = [0.09, -0.055]; // rad/s (negative = counter-clockwise)
 const RING_ALPHA = 0.5;
@@ -48,7 +49,15 @@ const DISPERSE_LIFE: [number, number] = [4, 9]; // seconds
 const DISPERSE_SHARE = 0.5; // fraction of the budget used by the disperse shape
 
 const SVG_MAX_POINTS = 900; // the static fallback keeps the DOM light
-const GOLD = "201, 162, 39";
+
+/** Colours come from the theme tokens in globals.css ("r, g, b" triples). */
+function readColors() {
+  const cs = getComputedStyle(document.documentElement);
+  return {
+    particle: cs.getPropertyValue("--particle").trim() || "201, 162, 39",
+    accent: cs.getPropertyValue("--accent-rgb").trim() || "201, 162, 39",
+  };
+}
 const TAU = Math.PI * 2;
 
 /* ───────────────────────── one-animates-at-a-time ───────────────────────── */
@@ -84,6 +93,8 @@ function createEngine(
 ) {
   const { rand, disperse } = opts;
   const dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
+  const fill = opts.ring ? RING_FILL : FILL;
+  let colors = readColors();
 
   // Canvas geometry (CSS px) and the fitted box of the shape.
   let w = 0;
@@ -184,7 +195,7 @@ function createEngine(
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(h * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    s = Math.min(w / shape.aspect, h) * FILL;
+    s = Math.min(w / shape.aspect, h) * fill;
     ox = (w - shape.aspect * s) / 2;
     oy = (h - s) / 2;
     if (first) scatter();
@@ -254,7 +265,7 @@ function createEngine(
   function draw() {
     ctx.clearRect(0, 0, w, h);
     if (shape.lines) {
-      ctx.strokeStyle = `rgba(${GOLD}, 0.6)`;
+      ctx.strokeStyle = `rgba(${colors.accent}, 0.6)`;
       ctx.lineWidth = 1;
       ctx.beginPath();
       for (const [x1, y1, x2, y2] of shape.lines) {
@@ -263,7 +274,7 @@ function createEngine(
       }
       ctx.stroke();
     }
-    ctx.fillStyle = `rgb(${GOLD})`;
+    ctx.fillStyle = `rgb(${colors.particle})`;
     // Five alpha buckets → five fills per frame instead of one per particle.
     for (let b = 0; b < 5; b++) {
       ctx.globalAlpha = (b + 1) / 5;
@@ -355,6 +366,12 @@ function createEngine(
   box.addEventListener("pointercancel", onLeave);
   const onRestart = () => scatter();
   box.addEventListener("daimon:restart", onRestart);
+  // Theme switch: re-read the colours and repaint once, even while paused.
+  const themeObserver = new MutationObserver(() => {
+    colors = readColors();
+    if (w > 0) draw();
+  });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   resize();
 
   return {
@@ -368,6 +385,7 @@ function createEngine(
       box.removeEventListener("pointerleave", onLeave);
       box.removeEventListener("pointercancel", onLeave);
       box.removeEventListener("daimon:restart", onRestart);
+      themeObserver.disconnect();
       arbitrate();
     },
   };
@@ -408,7 +426,7 @@ function StaticShape({ shape, ring, seed }: { shape: Shape; ring: boolean; seed:
       }
     });
   }
-  const pad = ((1 - FILL) / 2) * 1000;
+  const pad = ((1 - (ring ? RING_FILL : FILL)) / 2) * 1000;
   return (
     <svg
       viewBox={`${-pad} ${-pad} ${W + pad * 2} ${H + pad * 2}`}
@@ -417,9 +435,9 @@ function StaticShape({ shape, ring, seed }: { shape: Shape; ring: boolean; seed:
       aria-hidden="true"
     >
       {shape.lines?.map(([x1, y1, x2, y2], i) => (
-        <line key={i} x1={x1 * 1000} y1={y1 * 1000} x2={x2 * 1000} y2={y2 * 1000} stroke={`rgba(${GOLD}, 0.6)`} strokeWidth={2} />
+        <line key={i} x1={x1 * 1000} y1={y1 * 1000} x2={x2 * 1000} y2={y2 * 1000} stroke="var(--accent)" strokeOpacity={0.6} strokeWidth={2} />
       ))}
-      <g fill={`rgb(${GOLD})`}>
+      <g fill="var(--particle-color)">
         {dots.map((d, i) => (
           <circle key={i} cx={d.x} cy={d.y} r={d.r} opacity={d.o} />
         ))}

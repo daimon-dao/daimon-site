@@ -28,6 +28,8 @@ export function siteMetadata(copy: SiteCopy): Metadata {
 }
 
 export const siteViewport: Viewport = {
-  themeColor: "#0a1128",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbf7ec" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a1128" },
+  ],
 };
