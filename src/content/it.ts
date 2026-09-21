@@ -1,5 +1,6 @@
 // Italian copy — courtesy version; English (en.ts) is the reference.
-// Source: docs/VETRINA_TESTI.md in the contracts repo, "IT — la pagina". Verbatim.
+// Source: docs/VETRINA_TESTI.md in the contracts repo, "IT — la pagina". Verbatim,
+// except the constants band and the FAQ questions, which are new strings.
 import { links } from "@/links";
 import { sections } from "./sections";
 import type { SiteCopy } from "./types";
@@ -11,7 +12,13 @@ export const it: SiteCopy = {
     description:
       "Un protocollo che non appartiene a nessuno. Non promette rendimenti. Garantisce regole.",
   },
-  ui: { sections: "Sezioni", language: "Lingua", footerLinks: "Collegamenti a piè di pagina" },
+  ui: {
+    sections: "Sezioni",
+    language: "Lingua",
+    footerLinks: "Collegamenti a piè di pagina",
+    constants: "Le regole che nessuno può cambiare",
+    currentStage: "fase attuale",
+  },
   nav: [
     { label: "Perché esiste", href: `#${sections.why}` },
     { label: "Il nome è l'architettura", href: `#${sections.name}` },
@@ -22,16 +29,23 @@ export const it: SiteCopy = {
   opening: {
     title: "Daimon",
     tagline: "Un protocollo che non appartiene a nessuno.",
-    paragraphs: [
+    lead:
       "Non ha un proprietario, non ha un amministratore, non ha una funzione di emissione. Le commissioni vanno a chi detiene e a chi mette in staking. Ogni parametro può essere cambiato solo da un voto pubblico seguito da sette giorni allo scoperto — da chiunque, incluse le persone che l'hanno costruito, oppure da nessuno.",
-      "Non promette rendimenti. Garantisce regole.",
-    ],
+    sub: "Non promette rendimenti. Garantisce regole.",
     ctaApp: { label: "Apri l'app", href: links.app },
     ctaPaper: { label: "Leggi il protocol paper", href: links.protocolPaper },
   },
 
+  constants: [
+    { value: "0", label: "proprietari" },
+    { value: "21", unit: "mld", label: "floor della supply" },
+    { value: "7", unit: "giorni", label: "su ogni decisione" },
+    { value: "2", unit: "su 3", label: "firme del guardian" },
+    { value: "36", unit: "mesi", label: "durata del guardian" },
+    { value: "10", unit: "%", label: "tetto delle fee" },
+  ],
+
   why: {
-    label: "2 · Perché esiste",
     heading: "Il problema non è mai stato l'asset",
     paragraphs: [
       "La maggior parte dei token nasce con un proprietario: un account che può cambiare le commissioni, bloccare i trasferimenti, prelevare fondi, in molti casi emettere nuovi token. Quei poteri non sono nascosti — sono scritti nel contratto, visibili a chiunque lo legga. La domanda è cosa si frappone tra quei poteri e il loro abuso, e quasi sempre la risposta è: le intenzioni del proprietario. Nient'altro.",
@@ -42,7 +56,6 @@ export const it: SiteCopy = {
   },
 
   name: {
-    label: "3 · Il nome è l'architettura",
     heading: "Il nome è l'architettura",
     intro: [
       "Nella Grecia antica il *daimon* non era un demone. Era uno spirito guida che abitava tra gli dèi e i mortali — né sopra l'umanità né sotto, ma accanto. La parola deriva da un verbo che significa *dividere, spartire una parte*.",
@@ -70,27 +83,31 @@ export const it: SiteCopy = {
   },
 
   proofs: {
-    label: "4 · Le prove",
     heading: "Non fidatevi di questa pagina",
     intro: "Tutto quello che c'è scritto sopra o è vero sulla chain, o non lo è. Ecco come verificarlo:",
     items: [
       {
+        icon: "audit",
         text: "**Audit indipendente — il report è pubblico, integrale.** 37 problemi trovati: uno critico, uno alto, sette medi, dodici bassi, sedici informativi. Ventinove corretti nel codice, otto accettati con motivazione scritta — pubblicati anche quelli, con il perché.",
         link: { label: "Il report", href: links.auditReport },
       },
       {
+        icon: "frozen",
         text: "**Contratti congelati, 180 test.** Il codice che verrà deployato è identico byte per byte al tag auditato. La suite di test gira a ogni commit, e la differenza rispetto a quel tag viene verificata vuota prima di ogni pubblicazione.",
         link: { label: "Il repository e il tag", href: links.repositoryTag },
       },
       {
+        icon: "rehearsed",
         text: "**Provato prima di essere lanciato.** Trentuno scenari su un fork locale, poi un deploy completo su una chain di prova pubblica — con un ciclo di governance intero in tempo reale: proposta, voto, coda, sette giorni veri di attesa, esecuzione. Ogni transazione registrata in un registro pubblico, deviazioni comprese.",
         link: { label: "I registri", href: links.journals },
       },
       {
+        icon: "monitor",
         text: "**Un monitor che osserva e non può toccare.** Sola lettura, nessuna chiave privata, su un server tutto suo. Riporta lo stato del protocollo ogni sei ore e suona quando cambia qualcosa che non dovrebbe.",
         link: { label: "La specifica", href: links.monitorSpec },
       },
       {
+        icon: "contracts",
         text: "**I contratti.** Leggeteli, o leggete cosa ci hanno trovato altri.",
         link: { label: "I contratti", href: links.contracts },
       },
@@ -98,21 +115,45 @@ export const it: SiteCopy = {
   },
 
   status: {
-    label: "5 · Dove siamo",
     heading: "A che punto è",
-    lines: [
-      "**Fatto** — audit esterno concluso e pubblicato · contratti congelati · due prove generali complete, la seconda su chain pubblica · il guardian creato: due firme su tre, poteri solo negativi, in scadenza 36 mesi dopo il lancio",
-      "**Ora** — la prova generale della procedura di lancio",
-      "**Poi** — mainnet · la treasury comincia ad accumulare, per voto · moduli di servizio, ciascuno auditato separatamente prima del deploy",
+    stages: [
+      {
+        label: "Fatto",
+        text: "audit esterno concluso e pubblicato · contratti congelati · due prove generali complete, la seconda su chain pubblica · il guardian creato: due firme su tre, poteri solo negativi, in scadenza 36 mesi dopo il lancio",
+      },
+      { label: "Ora", text: "la prova generale della procedura di lancio" },
+      {
+        label: "Poi",
+        text: "mainnet · la treasury comincia ad accumulare, per voto · moduli di servizio, ciascuno auditato separatamente prima del deploy",
+      },
     ],
+    current: 1,
     note: "Nessuna data. Ogni passo dipende da un voto pubblico e dai sette giorni che lo precedono.",
     closing: "**La destinazione non è fissa. Il metodo sì.**",
   },
 
+  faq: {
+    heading: "Cosa Daimon non è.",
+    items: [
+      {
+        question: "È un investimento?",
+        answer:
+          "Non è un prodotto d'investimento e non promette rendimenti: una supply che si riduce non aumenta meccanicamente il valore.",
+      },
+      {
+        question: "Chi può aiutarmi se qualcosa va storto?",
+        answer:
+          "Nessuno può cambiare le regole contro di voi, e nessuno può intervenire per aiutarvi: non esiste un'assistenza che annulli una transazione o recuperi una chiave persa.",
+      },
+      {
+        question: "Il codice è sicuro?",
+        answer: "Il codice è stato auditato; non è perfetto.",
+      },
+    ],
+    terms: { label: "Avvertenze complete", href: links.terms },
+  },
+
   footer: {
-    notText:
-      "**Cosa Daimon non è.** Non è un prodotto d'investimento e non promette rendimenti: una supply che si riduce non aumenta meccanicamente il valore. Nessuno può cambiare le regole contro di voi, e nessuno può intervenire per aiutarvi: non esiste un'assistenza che annulli una transazione o recuperi una chiave persa. Il codice è stato auditato; non è perfetto.",
-    notLink: { label: "Avvertenze complete", href: links.terms },
     nav: [
       { label: "Protocol paper", href: links.protocolPaper },
       { label: "GitHub", href: links.github },
