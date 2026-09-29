@@ -120,16 +120,19 @@ export const it: SiteCopy = {
     stages: [
       {
         label: "Fatto",
-        text: "audit esterno concluso e pubblicato · contratti congelati · due prove generali complete, la seconda su chain pubblica · il guardian creato: due firme su tre, poteri solo negativi, in scadenza 36 mesi dopo il lancio",
+        text: "audit esterno concluso e pubblicato · contratti congelati · due prove generali complete, la seconda su chain pubblica · deploy su BNB Smart Chain mainnet, ogni contratto verificato · il guardian: due firme su tre, poteri solo negativi, in scadenza 36 mesi dopo il lancio",
       },
-      { label: "Ora", text: "la prova generale della procedura di lancio" },
+      {
+        label: "Ora",
+        text: "la finestra di migrazione è aperta: DMX si converte 1:1 in DMN fino al 28 dicembre 2026, 01:08 UTC, come scritto nel contratto",
+      },
       {
         label: "Poi",
-        text: "mainnet · la treasury comincia ad accumulare, per voto · moduli di servizio, ciascuno auditato separatamente prima del deploy",
+        text: "la treasury comincia ad accumulare, per voto · moduli di servizio, ciascuno auditato separatamente prima del deploy",
       },
     ],
     current: 1,
-    note: "Nessuna data. Ogni passo dipende da un voto pubblico e dai sette giorni che lo precedono.",
+    note: "Nessuna data per ciò che viene dopo. Ogni passo dipende da un voto pubblico e dai sette giorni che lo precedono.",
     closing: "**La destinazione non è fissa. Il metodo sì.**",
   },
 

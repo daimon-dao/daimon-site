@@ -120,16 +120,19 @@ export const en: SiteCopy = {
     stages: [
       {
         label: "Done",
-        text: "external audit concluded and published · contracts frozen · two full rehearsals, the second on a public chain · the guardian created: two signatures out of three, purely negative powers, expiring 36 months after launch",
+        text: "external audit concluded and published · contracts frozen · two full rehearsals, the second on a public chain · deployed on BNB Smart Chain mainnet, every contract verified · the guardian: two signatures out of three, purely negative powers, expiring 36 months after launch",
       },
-      { label: "Now", text: "the final rehearsal of the launch procedure itself" },
+      {
+        label: "Now",
+        text: "the migration window is open: DMX converts 1:1 into DMN until 28 December 2026, 01:08 UTC, as written in the contract",
+      },
       {
         label: "Next",
-        text: "mainnet · the treasury begins to accumulate, by vote · service modules, each audited independently before deployment",
+        text: "the treasury begins to accumulate, by vote · service modules, each audited independently before deployment",
       },
     ],
     current: 1,
-    note: "No dates. Every step depends on a public vote and the seven days that precede it.",
+    note: "No dates for what comes next. Every step depends on a public vote and the seven days that precede it.",
     closing: "**The destination is not fixed. The method is.**",
   },
 

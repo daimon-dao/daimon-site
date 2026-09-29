@@ -2,7 +2,7 @@
  * Every outbound URL on the site lives here and nowhere else.
  *
  * Verified against the contracts repo (github.com/daimon-dao/daimon-dao,
- * branch master) on 2026-09-21. A `{ en, it }` value is language-specific;
+ * branch master) on 2026-09-29. A `{ en, it }` value is language-specific;
  * `href()` picks the right one. Entries set to TODO render as an in-page "#"
  * anchor until they are filled.
  */
@@ -47,11 +47,8 @@ export const links = {
   /** Section 4 — the read-only monitor's specification. */
   monitorSpec: `${BLOB}/docs/SPEC_MONITOR.md`,
 
-  /**
-   * Section 4 — "The contracts themselves". Until mainnet this is the source tree;
-   * at launch it becomes the verified contract on BscScan.
-   */
-  contracts: `${REPO}/tree/master/src`,
+  /** Section 4 — "The contracts themselves": the DMN token on BscScan (BNB Smart Chain mainnet). */
+  contracts: "https://bscscan.com/token/0x160864F9945C52063A7c9f5dcd57C0C89eacbE6a",
 
   /** FAQ and footer — terms and disclaimer, v0.3. */
   terms: {
