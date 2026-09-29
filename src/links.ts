@@ -53,10 +53,10 @@ export const links = {
    */
   contracts: `${REPO}/tree/master/src`,
 
-  /** FAQ and footer — terms and disclaimer, v0.2. */
+  /** FAQ and footer — terms and disclaimer, v0.3. */
   terms: {
-    en: `${BLOB}/docs/DISCLAIMER_TERMS_v0.2_EN.md`,
-    it: `${BLOB}/docs/DISCLAIMER_TERMS_v0.2_IT.md`,
+    en: `${BLOB}/docs/DISCLAIMER_TERMS_v0.3_EN.md`,
+    it: `${BLOB}/docs/DISCLAIMER_TERMS_v0.3_IT.md`,
   },
 
   /** Footer — source and social. */
