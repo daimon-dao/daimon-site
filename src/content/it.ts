@@ -94,7 +94,7 @@ export const it: SiteCopy = {
       },
       {
         icon: "frozen",
-        text: "**Contratti congelati, 180 test.** Il codice che verrà deployato è identico byte per byte al tag auditato. La suite di test gira a ogni commit, e la differenza rispetto a quel tag viene verificata vuota prima di ogni pubblicazione.",
+        text: "**Contratti congelati, 180 test.** Il codice deployato è identico byte per byte al tag auditato, e ogni contratto è verificato su BscScan e Sourcify. La suite di test gira a ogni commit, e la differenza rispetto a quel tag viene verificata vuota prima di ogni pubblicazione.",
         link: { label: "Il repository e il tag", href: links.repositoryTag },
       },
       {

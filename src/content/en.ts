@@ -94,7 +94,7 @@ export const en: SiteCopy = {
       },
       {
         icon: "frozen",
-        text: "**Contracts frozen, 180 tests.** The code that will be deployed is byte-identical to the audited tag. The test suite runs on every commit, and the diff against that tag is verified empty before anything is published.",
+        text: "**Contracts frozen, 180 tests.** The deployed code is byte-identical to the audited tag, and every contract is verified on BscScan and Sourcify. The test suite runs on every commit, and the diff against that tag is verified empty before anything is published.",
         link: { label: "The repository and the tag", href: links.repositoryTag },
       },
       {
