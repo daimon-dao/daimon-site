@@ -256,7 +256,7 @@ export function Site({ copy }: { copy: SiteCopy }) {
       <footer id={sections.footer} className="border-t border-line">
         <Container className="py-14 md:py-20">
           <div className="flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
-            <a href={copy.path} className="flex items-center gap-3 text-fg">
+            <a href={copy.path} className="flex shrink-0 items-center gap-3 text-fg">
               <img src="/logo-512.png" alt="" width={40} height={40} className="h-10 w-10" />
               <span className="text-2xl font-bold tracking-tight">{opening.title}</span>
             </a>

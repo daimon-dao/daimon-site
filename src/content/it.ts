@@ -164,6 +164,7 @@ export const it: SiteCopy = {
       { label: "X", href: links.x },
       { label: "Telegram", href: links.telegram },
       { label: "Avvertenze legali", href: links.terms },
+      { label: "Contatto: info@daimon.money", href: links.contact },
     ],
     official:
       "**L'unico indirizzo ufficiale è daimon.money. L'app vive su app.daimon.money. Qualsiasi altra cosa non siamo noi.**",

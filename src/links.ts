@@ -60,6 +60,9 @@ export const links = {
   github: "https://github.com/daimon-dao",
   x: "https://x.com/DaimonDAO",
   telegram: "https://t.me/Daimon_one",
+
+  /** Footer — the project contact. */
+  contact: "mailto:info@daimon.money",
 } as const satisfies Record<string, Localized>;
 
 export type LinkKey = keyof typeof links;
