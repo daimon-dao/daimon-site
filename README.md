@@ -37,8 +37,10 @@ Any other static host works too: upload `out/`.
 | Hand-drawn line icons for the proof cards | [src/components/icons.tsx](src/components/icons.tsx) |
 | Sticky masthead (logo, nav, language switch, app button) | [src/components/Header.tsx](src/components/Header.tsx) |
 | `<html>`/`<body>` shell | [src/components/RootShell.tsx](src/components/RootShell.tsx) |
+| The 404 page, EN and IT on one page (becomes `out/404.html`) | [src/app/not-found.tsx](src/app/not-found.tsx) |
 | Inter, vendored under the SIL Open Font License | [src/fonts/](src/fonts/) |
 | Logo (copied from the contracts repo, `social-assets/logo-512.png`) | [public/logo-512.png](public/logo-512.png) |
+| Link-preview card, 1200 × 630 (Open Graph and X), rendered from the brand files in `social-assets/brand/` of the contracts repo | [public/og-image.png](public/og-image.png) |
 
 ### The copy
 
