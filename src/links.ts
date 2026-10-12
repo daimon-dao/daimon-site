@@ -21,8 +21,8 @@ export const links = {
   /** "Launch app" — the dApp. */
   app: "https://app.daimon.money",
 
-  /** "Read the protocol paper" and the footer "Protocol paper" entry: the v0.2 release (PDFs, EN + IT). */
-  protocolPaper: `${REPO}/releases/tag/protocol-paper-v0.2`,
+  /** "Read the protocol paper" and the footer "Protocol paper" entry: the v0.3 release (PDFs, EN + IT, the mainnet release of 2026-10-12). */
+  protocolPaper: `${REPO}/releases/tag/protocol-paper-v0.3`,
 
   /** Section 3 — "The full reading, with the code for each: protocol paper, Section 2". */
   protocolPaperSection2: {
